@@ -50,8 +50,10 @@ def main():
                 break
 
         if (len(ip_res) > 0):
+            print('Respuesta: '+ip_res)
             CONN.send(str.encode(ip_res))
         else:
+            print('No se encontro nada')
             CONN.send(str.encode('ERR'))
 
         stopConnections()   
