@@ -34,6 +34,7 @@ def main():
         addr = input('Direccion a consultar: ')
         if addr == 'exit':
             STATUS = 1
+            print('Saliendo...')
         else:
             MYSOCKET.send(str.encode(addr))
     
