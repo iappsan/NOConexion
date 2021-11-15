@@ -1,7 +1,7 @@
 import socket
 import time
 
-HOST = "172.16.8.13"                # IP del rootDNS
+HOST = "172.16.8.13"                # IP del servTLD
 GLOBAL_PORT = 5432                  # El puerto que usa el servidor
 BUFFERSIZE = 1024                   # Tamano del buffer
 SOCKET = socket.socket()          # Iniciamos el socket
@@ -22,7 +22,7 @@ def main():
         RAW_TEXT = []           # Texto crudo
         PRO_TEXT = []
         FILEPATH = './files/'    # Ruta de archivo
-        f = open (FILEPATH+'root-server-T LDs.txt', 'r') #Lee archivo y ordena lineas
+        f = open (FILEPATH+'TLD-Server-Registrars.txt', 'r') #Lee archivo y ordena lineas
         CONTENIDO = f.readlines()
         for line in CONTENIDO:
             RAW_TEXT.append(line.replace('\n',''))

@@ -1,7 +1,7 @@
 import socket
 import time
 
-HOST = "172.16.8.13"                # IP del rootDNS
+HOST = "172.16.8.13"                # IP del servMaster
 GLOBAL_PORT = 5432                  # El puerto que usa el servidor
 BUFFERSIZE = 1024                   # Tamano del buffer
 SOCKET = socket.socket()          # Iniciamos el socket
@@ -15,14 +15,13 @@ def main():
     global GLOBAL_PORT
 
     while True:
-        dom_res = ''
         ip_res = ''
 
         print("Leyendo txt ...")      
         RAW_TEXT = []           # Texto crudo
         PRO_TEXT = []
         FILEPATH = './files/'    # Ruta de archivo
-        f = open (FILEPATH+'root-server-TLDs.txt', 'r') #Lee archivo y ordena lineas
+        f = open (FILEPATH+'dominios.txt', 'r') #Lee archivo y ordena lineas
         CONTENIDO = f.readlines()
         for line in CONTENIDO:
             RAW_TEXT.append(line.replace('\n',''))
@@ -41,10 +40,6 @@ def main():
 
         for item in PRO_TEXT:
             if item[0] == tld:
-                dom_res = item[-1]
-                break
-        for item in PRO_TEXT:
-            if item[0] == dom_res:
                 ip_res = item[-1]
                 break
 

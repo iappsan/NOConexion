@@ -1,0 +1,6 @@
+www.facebook.com IN A 31.13.89.35
+www.youtube.com IN A 142.251.34.14
+www.google.com IN A 142.251.34.206
+www.ipn.mx IN A 148.204.103.43
+www.gob.mx IN A 23.211.34.43
+www.instagram.com  IN A 31.13.89.174
