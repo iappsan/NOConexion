@@ -1,7 +1,7 @@
 import socket
 import time
 
-HOST = "172.16.8.13"                # IP del servMaster
+HOST = "172.16.8.25"                # IP del servMaster
 GLOBAL_PORT = 5432                  # El puerto que usa el servidor
 BUFFERSIZE = 1024                   # Tamano del buffer
 SOCKET = socket.socket()          # Iniciamos el socket

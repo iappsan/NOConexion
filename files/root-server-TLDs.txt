@@ -1,10 +1,12 @@
 mx 3600 IN INS c.mx-ns.mx
-c.mx-ns.mx 3600 IN A 172.168.1.15
+c.mx-ns.mx 3600 IN A 172.16.8.24
 gov 5400 IN INS home.dotgov.gov
-home.dotgov.gov 3600 IN A 172.168.1.15
+home.dotgov.gov 3600 IN A 172.16.8.24
 edu 3300 IN INS se.een.edu
-se.een.edu 3600 IN A 172.168.1.15
+se.een.edu 3600 IN A 172.16.8.24
+com 3300 IN INS wa-xd.comercial.com
+wa-xd.comercial.com 3600 IN A 172.16.8.24
 ru 7600 IN INS ru-tld.ru
-ru-tld.ru 3600 IN A 172.168.1.1532
+ru-tld.ru 3600 IN A 172.16.8.2432
 us 4400 IN INS us.lla.us
-us.lla.us 3600 IN A 172.168.1.15
+us.lla.us 3600 IN A 172.16.8.24

@@ -2,7 +2,7 @@ import socket
 import time
 
 HOST = "172.16.8.13"                # IP del Resolver
-ROOTHOST = "172.16.8.14"            # IP del rootDNS
+ROOTHOST = "172.16.8.23"            # IP del rootDNS
 GLOBAL_PORT = 5432                  # El puerto que usa el servidor
 BUFFERSIZE = 1024                   # Tamano del buffer
 CLIENT_SOCKET = socket.socket()          # Iniciamos el socket
