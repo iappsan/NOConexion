@@ -19,40 +19,43 @@ def main():
     TLD_SOCKET = socket.socket()
     MAS_SOCKET = socket.socket()
 
-    CONN, ADDR = CLIENT_SOCKET.accept()
-    print(ADDR + ' conectado...\n')
-    CLIENTS.append(CONN)
+    while True:
+        CONN, ADDR = CLIENT_SOCKET.accept()
+        print(ADDR + ' conectado...\n')
+        CLIENTS.append(CONN)
 
-    rawAddress = str(CONN.recv(BUFFERSIZE).decode('UTF-8'))
-    splitAddress = rawAddress.split('.')
+        rawAddress = str(CONN.recv(BUFFERSIZE).decode('UTF-8'))
+        splitAddress = rawAddress.split('.')
 
-    CONN.send(str.encode('Consultando servidor raiz...'))
-    
-    ROOT_SOCKET.connect((ROOTHOST, GLOBAL_PORT))
-    ROOT_SOCKET.send(str.encode(splitAddress[-1]))
+        CONN.send(str.encode('Consultando servidor raiz...'))
+        
+        ROOT_SOCKET.connect((ROOTHOST, GLOBAL_PORT))
+        ROOT_SOCKET.send(str.encode(splitAddress[-1]))
 
-    rootRes = ROOT_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
-    if (rootRes == 'ERR'):
-        CONN.send(str.encode('No se encontro ningun TLD'))
-    else:
-        TLD_SOCKET.connect((rootRes,GLOBAL_PORT))
-        CONN.send(str.encode('Consultando TLD '+rootRes))
-        TLD_SOCKET.send(str.encode(splitAddress[-2]))
-
-        TLDRes = TLD_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
+        rootRes = ROOT_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
         if (rootRes == 'ERR'):
-            CONN.send(str.encode('No se encontro ningun servidor de nombres'))
+            CONN.send(str.encode('No se encontro ningun TLD'))
         else:
-            MAS_SOCKET.connect((TLDRes,GLOBAL_PORT))
-            CONN.send(str.encode('Consultando TLD '+TLDRes))
-            MAS_SOCKET.send(str.encode(rawAddress))
+            TLD_SOCKET.connect((rootRes,GLOBAL_PORT))
+            CONN.send(str.encode('Consultando TLD '+rootRes))
+            TLD_SOCKET.send(str.encode(splitAddress[-1]))
 
-            MASRes = MAS_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
-            if (MASRes == 'ERR'):
-                CONN.send(str.encode('No se encontro el dominio'))
+            TLDRes = TLD_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
+            if (rootRes == 'ERR'):
+                CONN.send(str.encode('No se encontro ningun servidor de nombres'))
             else:
-                str2 = 'El dominio '+rawAddress+' se encuentra en '+MASRes
-                CONN.send(str.encode(str2))
+                MAS_SOCKET.connect((TLDRes,GLOBAL_PORT))
+                CONN.send(str.encode('Consultando TLD '+TLDRes))
+                MAS_SOCKET.send(str.encode(rawAddress))
+
+                MASRes = MAS_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
+                if (MASRes == 'ERR'):
+                    CONN.send(str.encode('No se encontro el dominio'))
+                else:
+                    str2 = 'El dominio '+rawAddress+' se encuentra en '+MASRes
+                    CONN.send(str.encode(str2))
+        
+        stopConnections()
 
 def stopConnections():
     global CLIENTS
