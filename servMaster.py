@@ -15,7 +15,6 @@ def main():
     global GLOBAL_PORT
 
     while True:
-        print('Esperando conexion')
         ip_res = ''
 
         print("Leyendo txt ...")      
@@ -30,6 +29,7 @@ def main():
         for item in RAW_TEXT:
             PRO_TEXT.append(item.split())
 
+        print('Esperando conexion (serverMaster)')
         CONN, ADDR = SOCKET.accept()
         print(ADDR + ' conectado...\n')
         CLIENTS.append(CONN)
