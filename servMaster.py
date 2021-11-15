@@ -15,6 +15,7 @@ def main():
     global GLOBAL_PORT
 
     while True:
+        print('Esperando conexion')
         ip_res = ''
 
         print("Leyendo txt ...")      

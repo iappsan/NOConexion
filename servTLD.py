@@ -30,6 +30,7 @@ def main():
         for item in RAW_TEXT:
             PRO_TEXT.append(item.split())
 
+        print('Esperando conexion (servTDL)')
         CONN, ADDR = SOCKET.accept()
         print(ADDR + ' conectado...\n')
         CLIENTS.append(CONN)

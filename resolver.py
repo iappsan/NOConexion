@@ -20,6 +20,7 @@ def main():
     MAS_SOCKET = socket.socket()
 
     while True:
+        print('Esperando conexion')
         CONN, ADDR = CLIENT_SOCKET.accept()
         print(ADDR + ' conectado...\n')
         CLIENTS.append(CONN)
