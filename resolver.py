@@ -20,9 +20,9 @@ def main():
     MAS_SOCKET = socket.socket()
 
     while True:
-        print('Esperando conexion')
+        print('Esperando conexion (resolver)')
         CONN, ADDR = CLIENT_SOCKET.accept()
-        print(ADDR + ' conectado...\n')
+        print(str(ADDR) + ' conectado...\n')
         CLIENTS.append(CONN)
 
         rawAddress = str(CONN.recv(BUFFERSIZE).decode('UTF-8'))

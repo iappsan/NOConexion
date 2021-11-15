@@ -32,7 +32,7 @@ def main():
 
         print('Esperando conexion (servTDL)')
         CONN, ADDR = SOCKET.accept()
-        print(ADDR + ' conectado...\n')
+        print(str(ADDR) + ' conectado...\n')
         CLIENTS.append(CONN)
 
         tld = str(CONN.recv(BUFFERSIZE).decode('UTF-8'))
