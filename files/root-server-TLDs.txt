@@ -7,6 +7,6 @@ se.een.edu 3600 IN A 172.16.8.24
 com 3300 IN INS wa-xd.comercial.com
 wa-xd.comercial.com 3600 IN A 172.16.8.24
 ru 7600 IN INS ru-tld.ru
-ru-tld.ru 3600 IN A 172.16.8.2432
+ru-tld.ru 3600 IN A 172.16.8.24
 us 4400 IN INS us.lla.us
 us.lla.us 3600 IN A 172.16.8.24

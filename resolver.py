@@ -17,22 +17,24 @@ def main():
     global ROOT_SOCKET
     global GLOBAL_PORT
     global BUFFERSIZE
-    TLD_SOCKET = socket.socket()
-    MAS_SOCKET = socket.socket()
+
+    ROOT_SOCKET.connect((ROOTHOST, GLOBAL_PORT))
 
     while True:
+        TLD_SOCKET = socket.socket()
+        MAS_SOCKET = socket.socket()
         print('Esperando conexion (resolver)')
         CONN, ADDR = CLIENT_SOCKET.accept()
         print(str(ADDR) + ' conectado...\n')
         CLIENTS.append(CONN)
-
+    
         rawAddress = str(CONN.recv(BUFFERSIZE).decode('UTF-8'))
+        print("direccion recibida: "+rawAddress)
         splitAddress = rawAddress.split('.')
 
         CONN.send(str.encode('Consultando servidor raiz...'))
         print('Consultando servidor raiz...')
         
-        ROOT_SOCKET.connect((ROOTHOST, GLOBAL_PORT))
         ROOT_SOCKET.send(str.encode(splitAddress[-1]))
 
         rootRes = ROOT_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
@@ -41,21 +43,23 @@ def main():
             CONN.send(str.encode('No se encontro ningun TLD'))
         else:
             TLD_SOCKET.connect((rootRes,GLOBAL_PORT))
-            CONN.send(str.encode('Consultando TLD '+rootRes))
+            CONN.send(str.encode('Consultando TLD '+str(rootRes)))
             print('Consultando TLD '+rootRes)
             TLD_SOCKET.send(str.encode(splitAddress[-1]))
 
             TLDRes = TLD_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
+            TLD_SOCKET.close()
             if (rootRes == 'ERR'):
                 print('No se encontro ningun servidor de nombres')
                 CONN.send(str.encode('No se encontro ningun servidor de nombres'))
             else:
                 MAS_SOCKET.connect((TLDRes,GLOBAL_PORT))
-                CONN.send(str.encode('Consultando TLD '+TLDRes))
+                CONN.send(str.encode('Consultando TLD '+str(TLDRes)))
                 print('Consultando TLD '+TLDRes)
                 MAS_SOCKET.send(str.encode(rawAddress))
 
                 MASRes = MAS_SOCKET.recv(BUFFERSIZE).decode('UTF-8')
+                MAS_SOCKET.close()
                 if (MASRes == 'ERR'):
                     print('No se encontro ningun dominio')
                     CONN.send(str.encode('No se encontro el dominio'))
